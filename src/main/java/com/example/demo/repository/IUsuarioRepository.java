@@ -4,5 +4,5 @@ import com.example.demo.repository.modelo.Usuario;
 
 public interface IUsuarioRepository {
 
-	 Usuario consultarPorNombre(String nombre);
+	 public Usuario consultarPorNombre(String nombre);
 }

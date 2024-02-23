@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,13 +13,13 @@ import com.example.demo.repository.modelo.Usuario;
 @Service
 public class UsuarioServiceImpl implements UserDetailsService{
 
-	private IUsuarioRepository iUsuarioRepository;
-	
+	@Autowired
+	private IUsuarioRepository usuarioRepository;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario usuario=this.iUsuarioRepository.consultarPorNombre(username);
-		
-		return new User(usuario.getNombre(),usuario.getPassword(), emptyList());
+		// TODO Auto-generated method stub
+		Usuario usuario = this.usuarioRepository.consultarPorNombre(username);
+		return new User(usuario.getNombre(), usuario.getPassword(), emptyList());
 	}
 
 }
