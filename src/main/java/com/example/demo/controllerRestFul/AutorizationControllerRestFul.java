@@ -27,7 +27,7 @@ public class AutorizationControllerRestFul {
 		System.out.println(usuario);
 		this.autenticacion(usuario.getNombre(), usuario.getPassword());
 		
-		return new JwtUtils().buildTokenJwt(usuario.getNombre());
+		return this.jwt.buildTokenJwt(usuario.getNombre());
 	}
 
 	private void autenticacion(String usuario, String password) {
