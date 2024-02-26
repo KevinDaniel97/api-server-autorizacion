@@ -1,6 +1,5 @@
 package com.example.demo.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +8,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,24 +20,22 @@ public class WebSecurity {
 	private UserDetailsService detailsService;
 
 	@Autowired
-	private AuthEntryPointJwt authEntryPointJwt;
+	private AuthEntryPointJwt authEntryPointJWT;
 
 	// /API/v1.0/seguridad/autorizaciones/jwt/**
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable()
-				.exceptionHandling().authenticationEntryPoint(authEntryPointJwt).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.authorizeRequests().antMatchers("/autorizaciones/jwt/**").permitAll()
+		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(authEntryPointJWT).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.antMatchers("/autorizaciones/jwt/**").permitAll()
-				.anyRequest().authenticated();
+				.antMatchers("/autorizaciones/jwt/**").permitAll().anyRequest().authenticated();
 
 		http.authenticationProvider(authenticationProvider());
 
 		return http.build();
 	}
 
-	// Autenticacion
+	// Autenticacion relacion directa
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

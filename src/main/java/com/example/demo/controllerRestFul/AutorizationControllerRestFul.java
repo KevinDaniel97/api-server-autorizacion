@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.security.JwtUtils;
 import com.example.demo.service.to.UsuarioTo;
 
@@ -25,20 +24,15 @@ public class AutorizationControllerRestFul {
 
 	@GetMapping(path = "/jwt", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String obtenerToken(@RequestBody UsuarioTo usuario) {
-		// Autenticacion
-		// Validar que el usuario y el password sean correctos
-
-		// si la autenticacion es correcta, puedo retornar un token
-		System.out.println(usuario.getNombre());
+		System.out.println(usuario);
 		this.autenticacion(usuario.getNombre(), usuario.getPassword());
-		System.out.println(usuario.getNombre());
-		return new JwtUtils().buildTokenJWT(usuario.getNombre());
+		
+		return new JwtUtils().buildTokenJwt(usuario.getNombre());
 	}
-
 
 	private void autenticacion(String usuario, String password) {
 		UsernamePasswordAuthenticationToken usuarioToken = new UsernamePasswordAuthenticationToken(usuario, password);
-		Authentication authentication = this.authenticationManager.authenticate(usuarioToken);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		Authentication autenticacion = this.authenticationManager.authenticate(usuarioToken);
+		SecurityContextHolder.getContext().setAuthentication(autenticacion);
 	}
 }

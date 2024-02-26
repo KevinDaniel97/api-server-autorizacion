@@ -11,7 +11,7 @@ import com.example.demo.repository.modelo.Usuario;
 
 @Transactional
 @Repository
-public class UsuarioRepoImpl implements IUsuarioRepository{
+public class UsuarioRepoImpl implements IUsuarioRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -19,12 +19,10 @@ public class UsuarioRepoImpl implements IUsuarioRepository{
 	@Override
 	public Usuario consultarPorNombre(String nombre) {
 		// TODO Auto-generated method stub
-		String jpql ="SELECT u FROM Usuario u WHERE u.nombre =:nombre ";
-		TypedQuery<Usuario> myQuery = this.entityManager.createQuery(jpql,Usuario.class);
+		TypedQuery<Usuario> myQuery = this.entityManager.createQuery("SELECT u FROM Usuario u WHERE u.nombre = :nombre",
+				Usuario.class);
 		myQuery.setParameter("nombre", nombre);
 		return myQuery.getSingleResult();
-	
 	}
-	
-	
+
 }
